@@ -16,7 +16,7 @@ public class Carnivore2 extends Carnivore {
 
 	@Override
 	public String getName() {
-		return "Carnivore 2";
+		return "Max Tyrone Ackerman";
 	}
 
 	@Override
@@ -29,6 +29,12 @@ public class Carnivore2 extends Carnivore {
 				return new CarnivoreEat(ani);
 			}
 		}
+		List<Animal> allAnimals = this.getArena().getAllAnimals();
+		for (Animal a: allAnimals) {
+			if (a instanceof Herbivore1) {
+				return new MoveToward(this.getCell(),a.getCell(),true);		// move towards vinesh's herbivores
+			}
+		}
 
 		return new Move(Direction.randomDirection());
 	}
@@ -39,25 +45,25 @@ public class Carnivore2 extends Carnivore {
 		
 		switch(type) {
 		case SIZE1:
-			return ranNum;
+			return 1;
 
 		case SIZE2:
-			return ranNum;
+			return 1;
 
 		case SPEED1:
-			return ranNum;
+			return .1;
 
 		case SPEED2:
-			return ranNum;
+			return .1;
 
 		case MARKINGS1:
-			return ranNum;
+			return .4;
 
 		case MARKINGS2:
-			return ranNum;
+			return .4;
 
 		case FERTILITY:
-			return ranNum;
+			return .8;
 
 		default:
 			throw new RuntimeException("Never reach here");
@@ -81,13 +87,13 @@ public class Carnivore2 extends Carnivore {
 			return .1;
 
 		case MARKINGS1:
-			return .1;
+			return .3;
 
 		case MARKINGS2:
-			return .1;
+			return .3;
 
 		case FERTILITY:
-			return .1;
+			return .3;
 
 		default:
 			throw new RuntimeException("Never reach here");

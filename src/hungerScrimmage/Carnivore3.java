@@ -31,7 +31,7 @@ public class Carnivore3 extends Carnivore {
 
 	@Override
 	public String getName() {
-		return "Carnivore 3";
+		return "No Dubious Code Here";
 	}
 
 	private void say(String message) {

@@ -2,9 +2,19 @@ package hungerScrimmage;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
-import theHungerGames.*;
+import theHungerGames.Animal;
+import theHungerGames.Carnivore;
+import theHungerGames.Direction;
+import theHungerGames.GeneType;
+import theHungerGames.Herbivore;
+import theHungerGames.HerbivoreEat;
+import theHungerGames.Mate;
+import theHungerGames.Move;
+import theHungerGames.MoveToward;
+import theHungerGames.Turn;
 
 public class Herbivore1 extends Herbivore {
 
@@ -17,7 +27,7 @@ public class Herbivore1 extends Herbivore {
 
 	@Override
 	public String getName() {
-		return "Herbivore 1";
+		return "Guna eats Spinach";
 	}
 
 	@Override
@@ -28,11 +38,28 @@ public class Herbivore1 extends Herbivore {
 				return new Mate(ani);
 			}
 		}
-
+		
+		List<Animal> allOthers = getArena().getAllAnimals(this);
+		List<Animal> predators = new ArrayList<Animal>();
+		for(Animal ani : allOthers){
+			if(ani instanceof Carnivore && !(ani instanceof Carnivore1)){
+				predators.add(ani);
+			}
+		}
+		if(predators.size() > 0){
+			Animal closestPredator = predators.get(0);
+			if(closestPredator instanceof Carnivore){
+				new MoveToward(this.getCell(), closestPredator.getCell(), false);
+			}
+		}
+		else{
+			System.out.println("No Predators!");
+		}
+		
 		if (getCell().howMuchFood() > 5) {
 			return new HerbivoreEat();
 		} else {
-			return new Move(Direction.randomDirection()); 
+			return new Move(Direction.randomDirection());
 		}
 	}
 

@@ -17,25 +17,36 @@ public class Herbivore2 extends Herbivore {
 
 	@Override
 	public String getName() {
-		return "Herbivore 2";
+		return "Vinesh Girish Kannan";
 	}
 
 	@Override
 	protected Turn userDefinedChooseMove() {
 		List<Animal> others = getCell().getOtherAnimals(this);
+		
+		// mate if possible
 		for (Animal ani : others) {
 			if (checkMateability(ani)) {
 				return new Mate(ani);
 			}
 		}
-
+		
 		if (getCell().howMuchFood() > 5) {
 			return new HerbivoreEat();
 		} else {
+			List<Animal> allAnimals = this.getArena().getAllAnimals();
+			for (Animal a: allAnimals) {
+				if (a.getName().equals("Max Tyrone Ackerman")) {
+					return new MoveToward(this.getCell(),a.getCell(),true);		// move towards our carnivores
+				}
+			}
 			return new Move(Direction.randomDirection()); 
 		}
+		
+		
+		
 	}
-
+	
 	@Override
 	protected double getInitialGene(GeneType type) {
 		
@@ -43,26 +54,26 @@ public class Herbivore2 extends Herbivore {
 		
 		switch(type) {
 		case SIZE1:
-			return ranNum;
+			return .1;
 
 		case SIZE2:
-			return ranNum;
+			return .1;
 
 		case SPEED1:
-			return ranNum;
+			return 1.1;
 
 		case SPEED2:
-			return ranNum;
+			return 1.1;
 
 		case MARKINGS1:
-			return ranNum;
+			return .4;
 
 		case MARKINGS2:
-			return ranNum;
+			return .4;
 
 		case FERTILITY:
-			return ranNum;
-
+			return 1;
+					
 		default:
 			throw new RuntimeException("Never reach here");
 
@@ -85,13 +96,13 @@ public class Herbivore2 extends Herbivore {
 			return .1;
 
 		case MARKINGS1:
-			return .1;
+			return .3;
 
 		case MARKINGS2:
-			return .1;
+			return .3;
 
 		case FERTILITY:
-			return .1;
+			return 1;
 
 		default:
 			throw new RuntimeException("Never reach here");

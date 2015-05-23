@@ -17,7 +17,7 @@ public class Herbivore4 extends Herbivore {
 
 	@Override
 	public String getName() {
-		return "Herbivore 4";
+		return "Dr. Pat";
 	}
 
 	@Override

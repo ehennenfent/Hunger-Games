@@ -16,7 +16,7 @@ public class Carnivore4 extends Carnivore {
 
 	@Override
 	public String getName() {
-		return "Carnivore 4";
+		return "Pranav Sivakumar";
 	}
 
 	@Override
