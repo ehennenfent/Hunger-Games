@@ -8,7 +8,7 @@ import theHungerGames.*;
 
 public class Herbivore2 extends Herbivore {
 
-	static private Color color = new Color(91, 129, 253);
+	static private Color color = Color.GRAY;//new Color(91, 129, 253);
 	
 	@Override
 	protected Color getColor() {

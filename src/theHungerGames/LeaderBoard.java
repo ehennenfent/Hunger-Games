@@ -24,6 +24,7 @@ import javax.sound.sampled.*;
 public class LeaderBoard extends JPanel implements ActionListener {
 	
 	public static Map<String,Integer> scores = new HashMap<String,Integer>();
+	List<String> cannons = new ArrayList<String>();
 
 	/**
 	 * This small class implements a sort specific to Animal names, based on a map of the rankings passed to it
@@ -180,7 +181,7 @@ public class LeaderBoard extends JPanel implements ActionListener {
 					turnMap.put(ani, turnCount);
 				}
 				String output = "EXTINCT after " + turnMap.get(ani) + " turns";
-//				playCannon();
+				playCannon(ani);
 				
 				g.drawString(output, drawPosition, currentY + height);			
 			}
@@ -208,25 +209,29 @@ public class LeaderBoard extends JPanel implements ActionListener {
 		return response;
 	}
 	
-	private void playCannon(){
-		try {
-		    File yourFile = new File("Cannon.wav");
-		    AudioInputStream stream;
-		    AudioFormat format;
-		    DataLine.Info info;
-		    Clip clip;
-		    
-
-		    stream = AudioSystem.getAudioInputStream(yourFile);
-		    format = stream.getFormat();
-		    info = new DataLine.Info(Clip.class, format);
-		    clip = (Clip) AudioSystem.getLine(info);
-		    clip.open(stream);
-		    clip.start();
+	private void playCannon(String name){
+		if(!cannons.contains(name)){
+			try {
+			    File yourFile = new File("Cannon.wav");
+			    AudioInputStream stream;
+			    AudioFormat format;
+			    DataLine.Info info;
+			    Clip clip;
+			    
+	
+			    stream = AudioSystem.getAudioInputStream(yourFile);
+			    format = stream.getFormat();
+			    info = new DataLine.Info(Clip.class, format);
+			    clip = (Clip) AudioSystem.getLine(info);
+			    clip.open(stream);
+			    clip.start();
+			}
+			catch (Exception e) {
+			    e.printStackTrace();
+			}
+			cannons.add(name);
 		}
-		catch (Exception e) {
-		    e.printStackTrace();
-		}
+		
 	}
 	
 }

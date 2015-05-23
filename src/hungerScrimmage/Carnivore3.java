@@ -89,7 +89,7 @@ public class Carnivore3 extends Carnivore {
 
 		// Custom messages for certain days (only said once)
 		if (days == 1 && messageStatuses.get(days) != 1) {
-			say("Oh, you fucked up now.");
+			say("Oh, you scrooed up now.");
 			messageStatuses.set(days, 1);
 		}
 //		else if (days == 10 && messageStatuses.get(days) != 1) {
@@ -131,7 +131,7 @@ public class Carnivore3 extends Carnivore {
 					return new Mate(ani);
 				}
 			}
-			if(getArena().getNDays() < 150){
+			if(getArena().getNDays() < 120){
 			return Arena.getRandom().nextDouble() < 0.5 ? 
 					new Move(Direction.UP) : new Move(Direction.RIGHT);
 			}

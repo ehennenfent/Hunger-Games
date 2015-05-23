@@ -7,7 +7,9 @@ import theHungerGames.*;
 
 public class Carnivore2 extends Carnivore {
 
-	static private Color color = new Color(20, 43, 115);
+	static private Color color = Color.PINK; //new Color(20, 43, 115);
+	static Cell goTo = null;
+	
 	
 	@Override
 	protected Color getColor() {
@@ -29,14 +31,15 @@ public class Carnivore2 extends Carnivore {
 				return new CarnivoreEat(ani);
 			}
 		}
-		List<Animal> allAnimals = this.getArena().getAllAnimals();
-		for (Animal a: allAnimals) {
-			if (a instanceof Herbivore && getRandom().nextDouble() > .75) {
-				return new MoveToward(this.getCell(),a.getCell(),true);		// move towards vinesh's herbivores
-			}
-		}
+		
+		if (goTo != null && getRandom().nextDouble()>.95) {
+			goTo = new Cell(this.getArena(),(int)(this.getArena().getXSize()*getRandom().nextDouble()),(int)(this.getArena().getYSize()*getRandom().nextDouble()));
+		
 
-		return new Move(Direction.randomDirection());
+		return new MoveToward(this.getCell(),goTo,true);		// move towards vinesh's herbivores
+		}
+		else 
+			return new Move(Direction.randomDirection());
 	}
 
 	@Override
