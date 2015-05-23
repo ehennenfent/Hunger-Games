@@ -40,6 +40,10 @@ public class Carnivore1 extends Carnivore {
 			if (checkMateability(ani)) {
 				return new Mate(ani);
 			} else if (isPrey(ani) && !(ani instanceof Herbivore1)) {
+				if(ani == target){
+					targeting = false;
+					target = null;
+				}
 				return new CarnivoreEat(ani);
 			}
 		}

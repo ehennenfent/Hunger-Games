@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JPanel;
+import java.io.*;
+import javax.sound.sampled.*;
 
 /**
  * The LeaderBoard class creates colored bars which show which Animal is winning the competition.
@@ -178,6 +180,7 @@ public class LeaderBoard extends JPanel implements ActionListener {
 					turnMap.put(ani, turnCount);
 				}
 				String output = "EXTINCT after " + turnMap.get(ani) + " turns";
+//				playCannon();
 				
 				g.drawString(output, drawPosition, currentY + height);			
 			}
@@ -203,6 +206,27 @@ public class LeaderBoard extends JPanel implements ActionListener {
 		}
 		
 		return response;
+	}
+	
+	private void playCannon(){
+		try {
+		    File yourFile = new File("Cannon.wav");
+		    AudioInputStream stream;
+		    AudioFormat format;
+		    DataLine.Info info;
+		    Clip clip;
+		    
+
+		    stream = AudioSystem.getAudioInputStream(yourFile);
+		    format = stream.getFormat();
+		    info = new DataLine.Info(Clip.class, format);
+		    clip = (Clip) AudioSystem.getLine(info);
+		    clip.open(stream);
+		    clip.start();
+		}
+		catch (Exception e) {
+		    e.printStackTrace();
+		}
 	}
 	
 }

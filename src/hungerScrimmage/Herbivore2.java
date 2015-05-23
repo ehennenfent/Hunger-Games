@@ -54,10 +54,10 @@ public class Herbivore2 extends Herbivore {
 		
 		switch(type) {
 		case SIZE1:
-			return .1;
+			return 1;
 
 		case SIZE2:
-			return .1;
+			return 1;
 
 		case SPEED1:
 			return 1.1;

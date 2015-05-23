@@ -4,7 +4,7 @@ import java.lang.reflect.Type;
 
 import theHungerGames.Animal;
 import theHungerGames.Arena;
-import theHungerGames.FoodCell;
+import theHungerGames.SeasonalFoodCell;
 import theHungerGames.Viewer;
 import theHungerGames.WallCell;
 
@@ -56,7 +56,7 @@ public class ScrimmageDriver {
 
 		for (int ix = 0; ix < mymap.getXDim(); ++ix) {
 			for (int iy = 0; iy < mymap.getYDim(); ++iy) {
-					mymap.changeCell(ix, iy, new FoodCell(mymap, ix, iy));
+					mymap.changeCell(ix, iy, new SeasonalFoodCell(mymap, ix, iy));
 			}
 		}
 		

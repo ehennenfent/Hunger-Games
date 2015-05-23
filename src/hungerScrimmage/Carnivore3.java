@@ -92,30 +92,30 @@ public class Carnivore3 extends Carnivore {
 			say("Oh, you fucked up now.");
 			messageStatuses.set(days, 1);
 		}
-		else if (days == 10 && messageStatuses.get(days) != 1) {
-			say("10 days in. How are your prepations going?");
-			messageStatuses.set(days, 1);
-		}
-		else if (days == 25 && messageStatuses.get(days) != 1) {
-			say("25 down. 75 to go. Feeling nervous?");
-			messageStatuses.set(days, 1);
-		}
-		else if (days == 50 && messageStatuses.get(days) != 1) {
-			say("Woo! Halfway there. Should I give you a hint?");
-			messageStatuses.set(days, 1);
-		}
-		else if (days == 75 && messageStatuses.get(days) != 1) {
-			say("Hint: Don't touch me. I'm toxic af.");
-			messageStatuses.set(days, 1);
-		}
-		else if (days == 99 && messageStatuses.get(days) != 1) {
-			say("One more day. They call me Hand of God.");
-			messageStatuses.set(days, 1);
-		}
-		else if (days == 100 && messageStatuses.get(days) != 1) {
-			say("Operation Hellfire you are go for launch.");
-			messageStatuses.set(days, 1);
-		}
+//		else if (days == 10 && messageStatuses.get(days) != 1) {
+//			say("10 days in. How are your prepations going?");
+//			messageStatuses.set(days, 1);
+//		}
+//		else if (days == 25 && messageStatuses.get(days) != 1) {
+//			say("25 down. 75 to go. Feeling nervous?");
+//			messageStatuses.set(days, 1);
+//		}
+//		else if (days == 50 && messageStatuses.get(days) != 1) {
+//			say("Woo! Halfway there. Should I give you a hint?");
+//			messageStatuses.set(days, 1);
+//		}
+//		else if (days == 75 && messageStatuses.get(days) != 1) {
+//			say("Hint: Don't touch me. I'm toxic af.");
+//			messageStatuses.set(days, 1);
+//		}
+//		else if (days == 99 && messageStatuses.get(days) != 1) {
+//			say("One more day. They call me Hand of God.");
+//			messageStatuses.set(days, 1);
+//		}
+//		else if (days == 100 && messageStatuses.get(days) != 1) {
+//			say("Operation Hellfire you are go for launch.");
+//			messageStatuses.set(days, 1);
+//		}
 
 		// There are still walls. Congregate in the upper right and mate.
 		if (days < 100) {
@@ -131,16 +131,19 @@ public class Carnivore3 extends Carnivore {
 					return new Mate(ani);
 				}
 			}
+			if(getArena().getNDays() < 150){
 			return Arena.getRandom().nextDouble() < 0.5 ? 
 					new Move(Direction.UP) : new Move(Direction.RIGHT);
+			}
+			return new Move(Direction.randomDirection());
 		}
 		// There are no walls. Commence Operation zHellfire.
 		else {
 			// Check if other animals are ready to die. If so, kill them.
 			for (Entry<Class<? extends Animal>, Integer> ent : timesToLive.entrySet()) {
 				if (ent.getValue() == 0) {
-					say(ent.getKey().toString() + " has been marked for extinction. Goodbye.");
-					handOfGod(ent.getKey());
+//					say(ent.getKey().toString() + " has been marked for extinction. Goodbye.");
+					//handOfGod(ent.getKey());
 					// don't care about removing the entries because fuck it
 				}
 				else {

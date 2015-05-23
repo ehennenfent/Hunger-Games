@@ -31,7 +31,7 @@ public class Carnivore2 extends Carnivore {
 		}
 		List<Animal> allAnimals = this.getArena().getAllAnimals();
 		for (Animal a: allAnimals) {
-			if (a instanceof Herbivore1) {
+			if (a instanceof Herbivore && getRandom().nextDouble() > .75) {
 				return new MoveToward(this.getCell(),a.getCell(),true);		// move towards vinesh's herbivores
 			}
 		}

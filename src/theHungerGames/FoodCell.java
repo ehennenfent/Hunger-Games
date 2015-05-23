@@ -31,6 +31,14 @@ public class FoodCell extends Cell {
 		}
 		foodAmount = foodMax / 2;
 	}
+	
+	public double getGrowthPerTurn(){
+		return GROWTH_PER_TURN;
+	}
+	
+	public double getFoodMax(){
+		return FOOD_MAX_BASE;
+	}
 
 	@Override
 	public double howMuchFood() {
