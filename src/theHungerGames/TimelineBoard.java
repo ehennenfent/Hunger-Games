@@ -13,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class TimelineBoard extends JPanel implements ActionListener {
 
@@ -74,6 +76,9 @@ public class TimelineBoard extends JPanel implements ActionListener {
 		}
 		setMax();
 		time += timeIncrement;
+		JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+		if(Viewer.SAVE_IMAGES)
+		Viewer.saveImage(topFrame);
 	}
 	
 	private Timeline getTimeline(String name) {

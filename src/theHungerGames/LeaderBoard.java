@@ -11,8 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import java.io.*;
+
 import javax.sound.sampled.*;
 
 /**
@@ -105,6 +109,9 @@ public class LeaderBoard extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		repaint();
+		JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(this);
+		if(Viewer.SAVE_IMAGES)
+		Viewer.saveImage(topFrame);
 	}
 
 	@Override

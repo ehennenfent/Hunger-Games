@@ -1,9 +1,13 @@
 package theHungerGames;
 
+import hungerScrimmage.ScrimmageDriver;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -319,7 +323,15 @@ public final class Arena implements Drawable {
 		if(ndays == 100){
 			for (Map.Entry<Coord, Cell> entry: map.entrySet()){
 				if(entry.getValue() instanceof WallCell){
-					changeCell(entry.getValue().getX(), entry.getValue().getY(), new FoodCell(this, entry.getValue().getX(), entry.getValue().getY()));
+					Constructor<?> constructor = ScrimmageDriver.getCellConstructor();
+					try {
+						changeCell(entry.getValue().getX(), entry.getValue().getY(), (FoodCell) constructor.newInstance(this, entry.getValue().getX(), entry.getValue().getY()));
+					} catch (InstantiationException | IllegalAccessException
+							| IllegalArgumentException
+							| InvocationTargetException e) {
+						changeCell(entry.getValue().getX(), entry.getValue().getY(), new FoodCell(this, entry.getValue().getX(), entry.getValue().getY()));
+						e.printStackTrace();
+					}
 				}
 			}
 		}

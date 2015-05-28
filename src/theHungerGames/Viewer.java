@@ -1,15 +1,21 @@
 package theHungerGames;
 
+import hungerScrimmage.ScrimmageDriver;
+
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -26,6 +32,9 @@ public class Viewer extends JPanel implements MouseListener, ActionListener {
 	private Arena map;
 	private LeaderBoard leaderBoard;
 	private TimelineBoard timelines;
+	private static int frameNum = 0;
+	private static JFrame frame = new JFrame();
+	public static final boolean SAVE_IMAGES = ScrimmageDriver.getImageState();
 	/**
 	 * This determines the size of the bar along the bottom of the view.
 	 */
@@ -53,14 +62,18 @@ public class Viewer extends JPanel implements MouseListener, ActionListener {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(leaderBoard);
+		frame.setName("Leaderboard");
 		frame.setSize(leaderBoard.getWidth(), leaderBoard.getHeight());
 		frame.setVisible(true);
+		saveImage(frame);
 		
 		JFrame frame2 = new JFrame();
 		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame2.add(timelines);
-		frame2.setSize(timelines.getWidth(), timelines.getHeight());
+		frame2.setName("Timeline_Board");
+		frame2.setSize(timelines.getWidth() + 100, timelines.getHeight());
 		frame2.setVisible(true);
+		saveImage(frame2);
 	}
 
 	/**
@@ -78,6 +91,7 @@ public class Viewer extends JPanel implements MouseListener, ActionListener {
 	 * This is the actual heart of the function, called whenever an action is received.
 	 */
 	private void doStuff() {
+		frameNum++;
 		if (map.doTurn()) {
 			repaint();
 		} else {
@@ -87,6 +101,8 @@ public class Viewer extends JPanel implements MouseListener, ActionListener {
 			}
 			close();
 		}
+		if(SAVE_IMAGES)
+		saveImage(frame);
 	}
 
 	private void close() {
@@ -119,8 +135,8 @@ public class Viewer extends JPanel implements MouseListener, ActionListener {
 		map.Draw(g, getLocation().x, getLocation().y);
 		
 		g.setColor(Color.black);
-		String status = map.countAnimals();
-		g.drawString(status, DISTANCE_FROM_LEFT_EDGE, map.getYSize() - DISTANCE_FROM_EDGE);
+//		String status = map.countAnimals();
+//		g.drawString(status, DISTANCE_FROM_LEFT_EDGE, map.getYSize() - DISTANCE_FROM_EDGE);
 	}
 
 	// Only the mouseClick event is caught
@@ -155,11 +171,46 @@ public class Viewer extends JPanel implements MouseListener, ActionListener {
 		Viewer view = new Viewer(mymap, increment);
 		view.setTimer(timerSpeed);
 		
-		JFrame frame = new JFrame();
+//		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.add(view);
-		frame.setSize(view.getWidth(), view.getHeight());
+		frame.setName("Viewer");
+		frame.setSize(view.getWidth() - 7, view.getHeight() - 15);
 
 		frame.setVisible(true);	
+		
+		saveImage(frame);
+		
 	}
+	
+	public static void saveImage(JFrame frame){
+		File folder = new File("Images/" + frame.getName());
+		if (!folder.exists()) {
+		    System.out.println("creating directory for " + frame.getName());
+		    boolean result = false;
+
+		    try{
+		        folder.mkdir();
+		        result = true;
+		    } 
+		    catch(SecurityException se){
+		        //handle it
+		    }        
+		    if(result) {    
+		        System.out.println("Images/" + frame.getName() + " created");  
+		    }
+		}
+		try
+        {
+            BufferedImage image = new BufferedImage(frame.getWidth(), frame.getHeight(), BufferedImage.TYPE_INT_RGB);
+            Graphics2D graphics2D = image.createGraphics();
+            frame.paint(graphics2D);
+            ImageIO.write(image,"png", new File("Images/" + frame.getName() + "/" + frameNum+".png"));
+        }
+        catch(Exception exception)
+        {
+            System.out.println("Something went wrong with the image generation");
+        }
+	}
+	
 }
